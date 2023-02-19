@@ -1,0 +1,15 @@
+.center{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+.left{
+    display: table;
+    margin-left: 0;
+    margin-right: auto;
+}
+.right{
+    display: table;
+    margin-left: auto;      
+    margin-right: 0;
+}
