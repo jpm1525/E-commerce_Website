@@ -13,3 +13,7 @@
     margin-left: auto;      
     margin-right: 0;
 }
+.col-2_4{
+    flex:0 0 auto;
+    width:20%
+}
