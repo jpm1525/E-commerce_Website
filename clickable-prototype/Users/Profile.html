@@ -67,63 +67,6 @@
 					</form>
 				</div>
 			</div>
-			<div class="row mb-3">
-				<h1 class="display-4 fw-bold pb-2">Edit Shipping</h1>
-				<div class="col-md-6 p-3 jumbotron center border bg-light ">  
-					<h2 class="display-6 fw-bold pb-2">Shipping</h2>
-					<form action="" method="post">
-						<input type="hidden" class="form-label" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>"/>
-						<label class="form-label " for="first_name">First Name:</label>
-						<input class="form-control" type="text" name="first_name"/>
-						<label class="form-label " for="last_name">Last Name:</label>
-						<input class="form-control" type="text" name="last_name"/>
-						<label class="form-label " for="address_1">Address:</label>
-						<input class="form-control" type="text" name="address_1"/>
-						<label class="form-label " for="address_2">Address 2:</label>
-						<input class="form-control" type="text" name="address_2"/>
-						<label class="form-label " for="city">City:</label>
-						<input class="form-control" type="text" name="city"/>
-						<label class="form-label " for="state">State:</label>
-						<input class="form-control" type="text" name="state"/>
-						<label class="form-label " for="zipcode">Zipcode:</label>
-						<input class="form-control" type="number" name="zipcode"/>
-						<div class="text-danger">
-							<?=$errors_billing_info?>
-						</div>
-						<div class="text-success">
-							<?=$success_billing_info?>
-						</div>
-						<input class="center btn btn-success mt-2 right" id="submit" type="submit" value="Save"/>
-					</form>
-				</div>
-				<div class="col-md-6 p-3 jumbotron center border bg-light ">
-					<h2 class="display-6 fw-bold pb-2">Billing</h2>
-					<form action="" method="post">
-						<input type="hidden" class="form-label" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>"/>
-						<label class="form-label " for="first_name">First Name:</label>
-						<input class="form-control" type="text" name="first_name"/>
-						<label class="form-label " for="last_name">Last Name:</label>
-						<input class="form-control" type="text" name="last_name"/>
-						<label class="form-label " for="address_1">Address:</label>
-						<input class="form-control" type="text" name="address_1"/>
-						<label class="form-label " for="address_2">Address 2:</label>
-						<input class="form-control" type="text" name="address_2"/>
-						<label class="form-label " for="city">City:</label>
-						<input class="form-control" type="text" name="city"/>
-						<label class="form-label " for="state">State:</label>
-						<input class="form-control" type="text" name="state"/>
-						<label class="form-label " for="zipcode">Zipcode:</label>
-						<input class="form-control" type="number" name="zipcode"/>
-						<div class="text-danger">
-							<?=$errors_shipping_info?>
-						</div>
-						<div class="text-success">
-							<?=$success_shipping_info?>
-						</div>
-						<input class="center btn btn-success mt-2 right" id="submit" type="submit" value="Save"/>
-					</form>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>
