@@ -2,17 +2,42 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
     class Dashboards extends CI_Controller 
     {
-        public function orders($page=1)
+        public function __construct()
         {
-            $user_data['user_id'] = $this->session->userdata('user_id');
-            if(empty($user_data['user_id']))
-            {
-                redirect("../users/login");
-            }
-            var_dump($user_data['user_id']);
-            $view_data = array( 'page_title' => 'Orders');
-            $this->load->view('partials/header_admin', $view_data);
-            $this->load->view('dashboards/orders');
+            parent::__construct();
+            $this->load->model("Dashboard");
+        }
+        public function orders()
+        {
+            $header_data = array('page_title' => "Orders");
+            $this->load->view('partials/header_admin', $header_data);
+            $this->Dashboard->generate_pagination(1);
+            $this->load->view('dashboards/orders_index');
+            $this->load->view('partials/footer');
+        }
+        public function index_html()
+        {
+            $view_data = $this->Dashboard->generate_searches_view_data();
+            $this->session->keep_flashdata('searches');
+            $this->Dashboard->generate_pagination($this->session->flashdata('page_num'));
+            $this->load->view('dashboards/orders', $view_data);
+        }
+        public function update_rows()
+        {
+            $this->Dashboard->fetch_rows_with_conditions($this->input->post(NULL, TRUE));
+            $this->index_html();
+        }
+        public function page($page_num)
+        {
+            $this->Dashboard->generate_pagination($page_num);
+            $this->index_html();
+        }
+        public function order_view($order_id)
+        {
+            $header_data = array('page_title' => "Order #$order_id");
+            $order_data = $this->Dashboard->fetch_order_data_by_id($order_id);
+            $this->load->view('partials/header_admin', $header_data);
+            $this->load->view('dashboards/order_view', $order_data);
             $this->load->view('partials/footer');
         }
     }
