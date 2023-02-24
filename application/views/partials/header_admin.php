@@ -13,7 +13,7 @@
 		<header class="navbar navbar-expand-lg navbar-primary bg-primary px-3 mb-4">
 			<a class="navbar-brand navbar-dark" href="<?=base_url();?>dashboards">The Chosen Dashboard</a>
 			<a href="<?=base_url();?>dashboards" class="link-light mx-3 text-decoration-none">Orders</a>
-			<a href="<?=base_url();?>dashboards/products" class="link-light mx-3 text-decoration-none">Product</a>
+			<a href="<?=base_url();?>products" class="link-light mx-3 text-decoration-none">Product</a>
 			<div class="text-center me-3 right">
 				<a href="<?=base_url();?>/users/logout" class="text-light text-decoration-none">Logout</a>
 			</div>

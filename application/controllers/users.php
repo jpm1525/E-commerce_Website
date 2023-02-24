@@ -102,7 +102,7 @@
         public function logout()
         {
             $this->session->sess_destroy();
-            redirect("../dashboards");
+            redirect("../users/login");
         }
     }
 ?>

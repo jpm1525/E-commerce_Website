@@ -29,8 +29,38 @@
                                 <td><?=$searches[$index]['first_name']?> <?=$searches[$index]['last_name']?></td>
                                 <td><?=$searches[$index]['date_ordered']?></td> 
                                 <td><?=$searches[$index]['address_one']?> <?=$searches[$index]['address_two']?></td>  
-                                <td>$<?=$searches[$index]['grand_total']?></td>  
-                                <td><?=$searches[$index]['status']?></td>                     
+                                <td>$<?=$searches[$index]['grand_total']?></td>
+                                <td>
+                                    <form class="order_status" action="<?=base_url()?>dashboards/status_change/<?=$searches[$index]['id']?>" method="post">
+                                        <select class="form-select" name="order_status" aria-label="Default select example">
+<?php                               if($searches[$index]['status'] == "Order in Process")
+                                        {
+?>                                          <option selected><?=$searches[$index]['status']?></option>
+<?php                                   }
+                                    else
+                                        {
+?>                                          <option>Order in Process</option>
+<?php                                   }
+                                        if($searches[$index]['status'] == "Shipped")
+                                        {
+?>                                          <option selected><?=$searches[$index]['status']?></option>
+<?php                                   }
+                                    else
+                                        {
+?>                                          <option>Shipped</option>
+<?php                                   }
+                                    if($searches[$index]['status'] == "Cancelled")
+                                        {
+?>								    	            
+?>                                          <option selected><?=$searches[$index]['status']?></option>
+<?php                                   }
+                                    else
+                                        {
+?>                                          <option>Cancelled</option>
+<?php                                   }
+?>						                </select>
+                                    </form>
+                                </td>                     
                             </tr>
 <?php                   }
 ?>                      </tbody>
@@ -40,7 +70,7 @@
             <ul class="center">
 <?php       for($index = 1; $index <= $page_data['max_pages']; $index++)
             {
-?>              <form class="d-inline" action="<?=base_url()?>dashboards/page/<?=$index?>" method="POST">
+?>              <form class="d-inline pagination" action="<?=base_url()?>dashboards/page/<?=$index?>" method="POST">
 <?php           if($index == $page_num)
                 {
 ?>                  <li class="d-inline ms-1"><p class="pt-1 mx-0 my-0 d-inline align-middle"><?=$index?></p></li>
@@ -52,6 +82,5 @@
 <?php           }
 ?>              </form>
 <?php       }
-?>          </ul>
-            
+?>          </ul>         
 </div>

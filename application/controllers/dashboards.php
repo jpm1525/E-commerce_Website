@@ -6,6 +6,10 @@
         {
             parent::__construct();
             $this->load->model("Dashboard");
+            if($this->session->userdata('user_level') != 9)
+            {
+                redirect(base_url());
+            }
         }
         public function orders()
         {
@@ -38,6 +42,17 @@
             $order_data = $this->Dashboard->fetch_order_data_by_id($order_id);
             $this->load->view('partials/header_admin', $header_data);
             $this->load->view('dashboards/order_view', $order_data);
+            $this->load->view('partials/footer');
+        }
+        public function status_change($order_id)
+        {
+            $this->Dashboard->change_order_status_by_id($order_id,$this->input->post());
+        }
+        public function products()
+        {
+            $header_data = array('page_title' => "Products");
+            $this->load->view('partials/header_admin', $header_data);
+            $this->load->view('dashboards/products');
             $this->load->view('partials/footer');
         }
     }

@@ -10,8 +10,8 @@
 		<script src="../assets/script/jquery-3.6.3.min.js"></script>
     </head>
     <body>
-        <header class="navbar navbar-expand-lg navbar-dark bg-dark px-3 mb-4">
-            <a class="navbar-brand" href="../Admin/orders">The Chosen Dashboard</a>
+		<header class="navbar navbar-expand-lg navbar-primary bg-primary px-3 mb-4">
+			<a class="navbar-brand navbar-dark" href="#">The Chosen Dashboard</a>
         </header>
         <div class="container-lg px-1">
 			<?php

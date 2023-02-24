@@ -6,8 +6,16 @@
                         {
                             $('#searches').html(res);
                         });
+						//Update conditions on input change without page update
+						$(document).on('input','.order_status', function()
+                        {
+                            $.post($(this).attr('action'), $(this).serialize(), function() 
+                            {
+                            });
+                            return false;
+                        });
                         //Update conditions on input change
-                        $(document).on('input submit','form', function()
+                        $(document).on('input submit','.pagination,.conditions', function()
                         {
                             $.post($(this).attr('action'), $(this).serialize(), function(data) 
                             {
@@ -17,7 +25,7 @@
                         });
                     });
             </script>			
-			<form action="<?=base_url()?>/dashboards/update_rows" method="post">
+			<form class="conditions" action="<?=base_url()?>/dashboards/update_rows" method="post">
 				<input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>"/>
 				<div class="mb-3 row">
         		    <!-----Search------------------------------------>
@@ -28,10 +36,10 @@
 					<div class="col-6 col-md-2">
         		    <!-----Status Sort----------------------------------->
 						<select class="form-select right" name="status" aria-label="Default select example">
-							<option selected value="Show All">Show All</option>
-							<option value="Order in Process">Order in Process</option>
-							<option value="Shipped">Shipped</option>
-							<option value="Cancelled">Cancelled</option>
+							<option selected>Show All</option>
+							<option>Order in Process</option>
+							<option>Shipped</option>
+							<option>Cancelled</option>
 						</select>
 					</div>
 				</div>

@@ -1,52 +1,43 @@
 <?php
-    class Dashboard extends CI_Model 
+    class Product extends CI_Model 
     {
         //get all rows from table
         function fetch_all()
         {
-            $rows = $this->db->query("SELECT orders.id, billing_details.first_name, billing_details.last_name, DATE_FORMAT(orders.created_at, '%m/%d/%Y') as date_ordered, billing_details.address_one, billing_details.address_two, orders.grand_total, orders.status
-                                    FROM orders LEFT JOIN billing_details ON orders.billing_detail_id = billing_details.id ORDER BY orders.id DESC")->result_array();
-            $this->session->set_flashdata('searches',$rows);
+            $rows = $this->db->query("SELECT products.*, images.url FROM products LEFT JOIN images ON products.id = images.id WHERE images.sequence = 1 ORDER BY products.id ASC")->result_array();
+            $this->session->set_flashdata('products',$rows);
             return $rows;
         }
         //get rows from table that satisfies the parameters
         function fetch_rows_with_conditions()
         {
-            if($this->input->post('status') == 'Show All')
-            {
-                $status = "%%";
-            }
-            else
-            {
-                $status = $this->input->post('status');
-            }
             $search = "%" . $this->input->post('search') ."%";
-            $query =  "SELECT orders.id, billing_details.first_name, billing_details.last_name, DATE_FORMAT(orders.created_at, '%m/%d/%Y') as date_ordered, billing_details.address_one, billing_details.address_two, orders.grand_total, orders.status
-                FROM orders LEFT JOIN billing_details ON orders.billing_detail_id = billing_details.id 
-                WHERE (orders.id LIKE ? OR billing_details.first_name LIKE ? OR billing_details.last_name LIKE ? OR DATE_FORMAT(orders.created_at, '%m/%d/%Y') LIKE ? OR billing_details.address_one LIKE ? OR billing_details.address_two LIKE ? OR orders.grand_total LIKE ?) AND orders.status LIKE ?
-                ORDER BY orders.id DESC";
-            $values = array($search, $search, $search, $search, $search, $search, $search, $status);
+            $query = "SELECT products.*, images.url FROM products LEFT JOIN images ON products.id = images.id 
+                WHERE images.sequence = 1 AND (products.id LIKE ? OR products.name LIKE ? OR products.description 
+                LIKE ? OR products.stock LIKE ? OR products.sold LIKE ? OR products.price LIKE ?) 
+                ORDER BY products.id ASC";
+            $values = array($search, $search, $search, $search, $search, $search);
             $rows = $this->db->query($query, $values)->result_array();
-            $this->session->set_flashdata('searches',$rows);
+            $this->session->set_flashdata('products',$rows);
         }
         // generate table view data for use in view file
         function generate_searches_view_data()
         {
-            if(is_null($this->session->flashdata('searches')))
+            if(is_null($this->session->flashdata('products')))
             {
-                $view_data = array('searches' => $this->fetch_all());
+                $view_data = array('products' => $this->fetch_all());
             }
             else
             {
-                $searches = $this->session->flashdata('searches');
-                $view_data = array('searches' => $searches);
+                $searches = $this->session->flashdata('products');
+                $view_data = array('products' => $searches);
             }
             return $view_data;
         }
         //generate data for pagination
         function generate_pagination($page_num)
         {
-            $searches = $this->session->flashdata('searches');
+            $searches = $this->session->flashdata('products');
             if(is_null($searches))
             {
                 $searches=$this->generate_searches_view_data();
@@ -74,8 +65,8 @@
             {
                 $page_num = 1;
             }
-            $this->session->set_flashdata('page_data',$page_data);
-            $this->session->set_flashdata('page_num', $page_num);
+            $this->session->set_flashdata('products_page_data',$page_data);
+            $this->session->set_flashdata('products_page_num', $page_num);
         }
         function fetch_order_data_by_id($order_id)
         {
